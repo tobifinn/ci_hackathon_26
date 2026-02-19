@@ -16,6 +16,10 @@
     --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
 }
 
+html, body {
+    height: 100%; /* ensure Firefox treats the flex container height as definite */
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     line-height: 1.6;
@@ -29,27 +33,73 @@ body {
     padding: 0 2rem;
 }
 
+/* Fixed header/footer + scrollable main ONLY on wider displays */
+@media (min-width: 769px) {
+    html, body { height: 100%; }
+
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        height: 100vh; /* definite-height flex container for cross-browser scrolling */
+    }
+
+    main.container {
+        flex: 1 1 auto;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+
+        /* visually hide the scrollbar but keep scrolling functional */
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none;    /* Firefox */
+    }
+
+    /* WebKit browsers */
+    main.container::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+    }
+
+    .navbar, footer {
+        flex-shrink: 0; /* keep header/footer visible in flex layout */
+    }
+}
+
 /* Navigation */
 .navbar {
     background-color: var(--white);
     box-shadow: var(--shadow);
-    position: sticky;
-    top: 0;
+    position: relative; /* kept in normal flow so header always shows */
     z-index: 100;
+    flex-shrink: 0;
 }
 
 .navbar .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
+    padding: 0.25rem 1.5rem; /* reduced vertical & horizontal padding for a tighter header */
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.logo-img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    border-radius: 6px;
 }
 
 .logo h1 {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     color: var(--accent-color);
     font-weight: 700;
-}
+    margin: 0;
+} 
 
 .nav-menu {
     display: flex;
@@ -60,12 +110,12 @@ body {
 .nav-link {
     background: none;
     border: none;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.95rem;
     font-weight: 500;
     color: var(--text-light);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     border-radius: 8px;
 }
 
@@ -122,6 +172,60 @@ body {
     padding: 20px;
 }
 
+/* Brand badge below intro */
+.brand-badge-container {
+    text-align: center;
+    margin-top: 1.25rem;
+}
+
+.brand-badge {
+    display: block;
+    margin: 0.75rem auto 0;
+    width: 100%;
+    max-width: 320px; /* limits size on large screens */
+    height: auto;
+    opacity: 0.95;
+}
+
+@media (max-width: 480px) {
+    .brand-badge {
+        max-width: 220px;
+    }
+}
+
+/* Logo modal (mobile preview when image is tapped) */
+.logo-modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.95); /* brighter backdrop */
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 2200;
+    padding: 1rem;
+}
+
+.logo-modal.open {
+    display: flex;
+    animation: fadeIn 0.18s ease;
+}
+
+.logo-modal img {
+    width: 100%;
+    max-width: 100%;
+    max-height: 84vh;
+    height: auto;
+    background: var(--white); /* white card behind image */
+    padding: 0.5rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    cursor: zoom-out;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    object-fit: contain;
+}
+
 .hero-text h2 {
     font-size: 2.5rem;
     color: var(--accent-color);
@@ -173,6 +277,35 @@ body {
     font-size: 1.125rem;
     color: var(--text-dark);
     font-weight: 500;
+}
+
+/* Date stack — old date above new date */
+.date-stack {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    vertical-align: middle;
+}
+
+.date-stack .old-date {
+    color: var(--text-light);
+    font-size: 0.85rem;
+    text-decoration: line-through;
+    opacity: 0.8;
+    margin: 0;
+}
+
+.date-stack .new-date {
+    font-weight: 500;
+    color: var(--text-dark);
+    font-size: 1.125rem;
+    line-height: 1;
+    margin: 0;
+}
+
+/* small left gap when date-stack follows inline label */
+.info-box p .date-stack {
+    margin-left: 0.5rem;
 }
 
 /* CTA Section */
@@ -248,6 +381,31 @@ body {
     border-left: 4px solid var(--primary-color);
 }
 
+/* About box variant (white card below CTA) */
+.about-box {
+    border-left: none; /* no accent stripe for the about card */
+    padding: 2.25rem;
+}
+
+.about-text {
+    color: var(--text-light);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+}
+
+.key-problems-heading {
+    font-size: 1.25rem;
+    color: var(--accent-color);
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+/* ensure problem cards are left-aligned inside the about box */
+.about-box .info-card {
+    text-align: left;
+}
+
 .info-section h3 {
     font-size: 1.5rem;
     color: var(--accent-color);
@@ -318,15 +476,79 @@ body {
 /* Footer */
 footer {
     background-color: var(--white);
-    padding: 2rem 0;
-    margin-top: 4rem;
-    text-align: center;
+    padding: 1rem 0; /* reduced footer padding */
+    margin-top: 2rem; /* reduced top spacing */
     box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.05);
+    flex-shrink: 0; /* keep footer visible */
+}
+
+.footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.footer-logos {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+/* increase horizontal spacing specifically between the two sponsor logos */
+.footer-logo + .footer-logo {
+    margin-left: 1.25rem;
+}
+
+.supported-by {
+    font-weight: 600;
+    color: var(--text-light);
+    margin-right: 0.5rem;
+    white-space: nowrap;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 480px) {
+    .supported-by {
+        margin-right: 0;
+        margin-bottom: 0.25rem;
+    }
+}
+
+.footer-logo {
+    height: 0.85em; /* slightly smaller than footer text */
+    width: auto;
+    display: block;
 }
 
 footer p {
     color: var(--text-light);
     font-size: 0.95rem;
+    margin: 0;
+}
+
+@media (max-width: 480px) {
+    .footer-inner {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 0.5rem;
+    }
+
+    .footer-logos {
+        flex-direction: column;
+    }
+
+    .footer-logo {
+        height: 0.95em;
+    }
+
+    /* stacked logos: remove horizontal margin and add vertical spacing */
+    .footer-logo + .footer-logo {
+        margin-left: 0;
+        margin-top: 0.5rem;
+    }
 }
 
 /* Responsive Design */
@@ -344,6 +566,16 @@ footer p {
 
     .nav-link {
         width: 100%;
+    }
+
+    .logo-img {
+        width: 28px;
+        height: 28px;
+    }
+
+    /* make the hero schematic tappable on small screens */
+    .hero-img-preview {
+        cursor: zoom-in;
     }
 
     .hero {

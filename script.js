@@ -44,6 +44,59 @@ document.addEventListener('DOMContentLoaded', () => {
         const tabName = window.location.hash.substring(1);
         switchTab(tabName);
     }
+
+    // Image modal (mobile): tap schematic to preview, tap preview to close
+    const heroImg = document.querySelector('.hero-img-preview');
+    const logoModal = document.getElementById('logo-modal');
+    const logoModalImg = document.getElementById('logo-modal-img');
+    let _prevActive = null;
+
+    function openLogoModal(src, alt) {
+        if (!logoModal || !logoModalImg) return;
+        _prevActive = document.activeElement;
+        logoModalImg.src = src;
+        logoModalImg.alt = alt || '';
+        logoModal.classList.add('open');
+        logoModal.setAttribute('aria-hidden', 'false');
+        logoModal.focus();
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLogoModal() {
+        if (!logoModal || !logoModalImg) return;
+        logoModal.classList.remove('open');
+        logoModal.setAttribute('aria-hidden', 'true');
+        logoModalImg.src = '';
+        document.body.style.overflow = '';
+        if (_prevActive) _prevActive.focus();
+        _prevActive = null;
+    }
+
+    if (heroImg) {
+        heroImg.addEventListener('click', (e) => {
+            if (window.matchMedia('(max-width: 768px)').matches) {
+                openLogoModal(heroImg.src, heroImg.alt || 'Hero image');
+            }
+        });
+        heroImg.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                if (window.matchMedia('(max-width: 768px)').matches) {
+                    openLogoModal(heroImg.src, heroImg.alt || 'Hero image');
+                }
+            }
+        });
+    }
+
+    if (logoModal) {
+        logoModal.addEventListener('click', closeLogoModal);
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeLogoModal();
+        }
+    });
 });
 
 // Export for inline onclick handlers

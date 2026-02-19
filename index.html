@@ -3,22 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Climate Informatics 2026 Hackathon | Lausanne</title>
+    <title>CI 2026 Hackathon</title>
     <link rel="stylesheet" href="styles.css">
+
+    <!-- Favicon (primary: favicon.ico) -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico">
+    <!-- PNG retained for apple-touch and high-res displays -->
+    <link rel="icon" type="image/png" sizes="32x32" href="ci_logo.png">
+    <link rel="apple-touch-icon" href="ci_logo.png">
+    <meta name="theme-color" content="#0e7490">
 </head>
 <body>
     <header>
         <nav class="navbar">
             <div class="container">
                 <div class="logo">
-                    <h1>CI Hackathon 2026</h1>
+                    <img src="ci_logo.png" alt="CI Hackathon logo" class="logo-img" width="40" height="40">
+                    <h1>Hackathon 2026</h1>
                 </div>
                 <ul class="nav-menu">
                     <li><button class="nav-link active" data-tab="home">Home</button></li>
                     <li><button class="nav-link" data-tab="registration">Registration</button></li>
                 </ul>
             <div class="nav-cta">
-                <a href="https://wp.unil.ch/ci26/" class="nav-cta-link" target="_blank" rel="noopener noreferrer" aria-label="CI26 main conference website (opens in a new tab)">Main Conference</a>
+                <a href="https://wp.unil.ch/ci26/" class="nav-cta-link" target="_blank" rel="noopener noreferrer" aria-label="CI26 main conference website (opens in a new tab)">To the Main Conference</a>
             </div>
         </div>
         </nav>
@@ -47,7 +56,11 @@
                             <!-- Fallback image -->
                             <img src="schematic.png" 
                                  alt="Training a neural network to predict cloud cover from AI climate model outputs"
-                                 loading="lazy">
+                                 loading="lazy"
+                                 class="hero-img-preview"
+                                 tabindex="0"
+                                 role="button"
+                                 aria-haspopup="dialog">
                         </picture>
                     </div>
                     <p class="subtitle">Lausanne | 27–30 April 2026</p>
@@ -56,6 +69,12 @@
                         look into the cloud representation of deep learning weather prediction models. Collaborate with 
                         experts in climate science and AI to tackle this challenge!
                     </p>
+
+                    <div class="brand-badge-container" aria-hidden="false">
+                        <img src="accelerated-by-nvidia-horiz-rgb-blk-for-screen.png" 
+                             alt="Accelerated by NVIDIA" 
+                             class="brand-badge" loading="lazy">
+                    </div>
                 </div>
             </div>
 
@@ -70,13 +89,50 @@
                 </div>
                 <div class="info-card">
                     <h3>⏰ Registration Deadline</h3>
-                    <p>22 February 2026</p>
+                    <p>
+                        <span class="date-stack" aria-hidden="false">
+                            <span class="new-date">15th March 2026</span>
+                            <del class="old-date">22nd February 2026</del>
+                        </span>
+                    </p>
                 </div>
             </div>
 
             <div class="cta-section">
                 <h3>Join Us!</h3>
                 <a href="#registration" class="btn btn-primary" onclick="switchTab('registration')">Register Now</a>
+            </div>
+
+            <div class="about-box info-section" id="about">
+                <div class="info-header">
+                    <h2>About</h2>
+                </div>
+                <p class="about-text">
+                    In the Climate Informatics 2026, we will together explore how deep learning weather prediction (DLWP) models see clouds.
+                    Clouds are a critical component of the Earth's climate system, influencing energy balance, precipitation, and atmospheric dynamics.
+                    However, the cloud cover often remains unpredicted in DLWP models, which limits their evaluation and interpretability.
+                    In this hackathon, we will work together to develop and apply machine learning techniques to analyze the cloud representation in DLWP models, with the goal of improving our understanding of these models and ultimately enhancing their performance.<br>
+                    The goal is to learn an adapter that maps typical DLWP model output to cloud cover, and to use this adapter to analyze the cloud representation in the model.
+                    As most DLWP models are trained on the ERA5 reanalysis dataset, we will take a perfect model approach: we will train neural networks to map ERA5 reanalysis outputs to ERA5 cloud cover.
+                    This will allow us to analyze the raw cloud representation from DLWP models.
+                    Testing their generalisation and robustness, we will apply the trained adapter to hold-out ERA5 data, as well as model output from the AIMIP project, which includes a variety of DLWP model output on climate-like timescales.
+                    In the end, we hope to identify key problems and opportunities for improving the cloud representation in DLWP models, which can ultimately contribute to advancing our understanding of DLWP models for climate projections and to improve their weather prediction capabilities.
+                </p>
+                <h3 class="key-problems-heading">Key Problems We Aim to Address</h3>
+                <div class="key-info">
+                    <div class="info-card">
+                        <h3>Cloud diagnostics</h3>
+                        <p>The aim is to learn an adapter that can be applied to any DLWP model output to produce cloud cover predictions. We want to enable cloud diagnostics for DLWP models that don't predict clouds.</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>Model evaluation</h3>
+                        <p>By comparing the adapter's output to known cloud cover, we can assess model performance and identify biases. This will help us understand the limitations of DLWP models and guide future improvements.</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>Application</h3>
+                        <p>By using the adapter as observation operator in data assimilation, we can assimilate satellite cloud observations into DLWP models. This can improve their accuracy and reliability for weather prediction.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -92,7 +148,9 @@
                         Lausanne April 27th–April 30th 2026.
                     </p>
                     <p>
-                        <strong>Registration Deadline:</strong> 22nd February 2026
+                        <strong>Registration Deadline:</strong>
+                        <del class="old-date">22nd February 2026</del>
+                        <span class="new-date">15th March 2026</span>
                     </p>
                     <p class="note">
                         If there are too many registrations, the organisers reserve the right to select participants after the registration deadline
@@ -118,10 +176,20 @@
     </main>
 
     <footer>
-        <div class="container">
-            <p>&copy; 2026 Climate Informatics Hackathon. All rights reserved.</p>
+        <div class="container footer-inner">
+            <div class="footer-logos" aria-hidden="false">
+                <span class="supported-by">Supported by:</span>
+                <img src="unil-logo.svg" alt="Supported by UNIL" class="footer-logo">
+                <img src="nvidia-logo.png" alt="Supported by NVIDIA" class="footer-logo">
+            </div>
+            <p>&copy; Climate Informatics Hackathon 2026. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- Logo preview modal (mobile) -->
+    <div id="logo-modal" class="logo-modal" role="dialog" aria-hidden="true" aria-label="Logo preview" tabindex="-1">
+        <img id="logo-modal-img" src="" alt="Logo preview">
+    </div>
 
     <script src="script.js"></script>
 </body>
