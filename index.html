@@ -122,18 +122,17 @@
             </div>
         </section>
 
-        <!-- Leaderboard Tab -->
-        <section id="leaderboard" class="tab-content">
-            <div class="leaderboard-embed">
-                <iframe
-                    src="https://tobifinn-ci2026-hackathon-leaderboard.hf.space"
-                    title="CI 2026 Hackathon Leaderboard"
-                    allow="cross-origin-isolated"
-                    loading="lazy">
-                </iframe>
-            </div>
-        </section>
     </main>
+
+    <!-- Leaderboard: outside main.container so it is not width-constrained -->
+    <section id="leaderboard" class="leaderboard-fullscreen">
+        <iframe
+            src="https://tobifinn-ci2026-hackathon-leaderboard.hf.space"
+            title="CI 2026 Hackathon Leaderboard"
+            allow="cross-origin-isolated"
+            loading="lazy">
+        </iframe>
+    </section>
 
     <footer>
         <div class="container footer-inner">

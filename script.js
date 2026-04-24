@@ -24,14 +24,15 @@ function switchTab(tabName) {
         selectedNavLink.classList.add('active');
     }
 
-    // Full-bleed mode for leaderboard (remove container constraints)
+    // Show/hide the full-bleed leaderboard and the main container
     const mainEl = document.querySelector('main');
-    if (mainEl) {
-        mainEl.classList.toggle('leaderboard-active', tabName === 'leaderboard');
-    }
+    const leaderboardEl = document.getElementById('leaderboard');
+    const isLeaderboard = tabName === 'leaderboard';
+    if (mainEl) mainEl.style.display = isLeaderboard ? 'none' : '';
+    if (leaderboardEl) leaderboardEl.classList.toggle('active', isLeaderboard);
 
-    // Scroll to top smoothly
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Scroll to top smoothly (only for non-leaderboard tabs)
+    if (!isLeaderboard) window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // Add event listeners to nav links
