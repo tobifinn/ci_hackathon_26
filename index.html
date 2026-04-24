@@ -24,7 +24,7 @@
                 </div>
                 <ul class="nav-menu">
                     <li><button class="nav-link active" data-tab="home">Home</button></li>
-                    <li><button class="nav-link" data-tab="registration">Registration</button></li>
+                    <li><button class="nav-link" data-tab="leaderboard">Leaderboard</button></li>
                 </ul>
             <div class="nav-cta">
                 <a href="https://wp.unil.ch/ci26/" class="nav-cta-link" target="_blank" rel="noopener noreferrer" aria-label="CI26 main conference website (opens in a new tab)">To the Main Conference</a>
@@ -87,20 +87,6 @@
                     <h3>📅 Dates</h3>
                     <p>27–30 April 2026</p>
                 </div>
-                <div class="info-card">
-                    <h3>⏰ Registration Deadline</h3>
-                    <p>
-                        <span class="date-stack" aria-hidden="false">
-                            <span class="new-date">15th March 2026</span>
-                            <del class="old-date">22nd February 2026</del>
-                        </span>
-                    </p>
-                </div>
-            </div>
-
-            <div class="cta-section">
-                <h3>Join Us!</h3>
-                <a href="#registration" class="btn btn-primary" onclick="switchTab('registration')">Register Now</a>
             </div>
 
             <div class="about-box info-section" id="about">
@@ -136,41 +122,15 @@
             </div>
         </section>
 
-        <!-- Registration Tab -->
-        <section id="registration" class="tab-content">
-            <h2>Registration</h2>
-            
-            <div class="registration-info">
-                <div class="info-box">
-                    <h3>📝 How to Register</h3>
-                    <p>
-                        This is the registration form for the Climate Informatics Hackathon 2026, taking place in 
-                        Lausanne April 27th–April 30th 2026.
-                    </p>
-                    <p>
-                        <strong>Registration Deadline:</strong>
-                        <del class="old-date">22nd February 2026</del>
-                        <span class="new-date">15th March 2026</span>
-                    </p>
-                    <p class="note">
-                        If there are too many registrations, the organisers reserve the right to select participants after the registration deadline
-                        based on position and registration time.
-                    </p>
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSek76q_ey9ZvuwvIktktGLMKZTwX9ym2Ci3dSVdoqk28LDwxw/viewform?usp=header" 
-                       class="btn btn-primary" target="_blank" rel="noopener noreferrer">
-                        Go to Registration Form
-                    </a>
-                </div>
-
-                <div class="info-box">
-                    <h3>📧 Contact</h3>
-                    <p>
-                        For questions or additional information, please reach out to the organising committee.
-                    </p>
-                    <p>
-                        Email: <a href="mailto: tobias.finn@enpc.fr"> Tobias Finn</a>
-                    </p>
-                </div>
+        <!-- Leaderboard Tab -->
+        <section id="leaderboard" class="tab-content">
+            <div class="leaderboard-embed">
+                <iframe
+                    src="https://tobifinn-ci2026-hackathon-leaderboard.hf.space"
+                    title="CI 2026 Hackathon Leaderboard"
+                    allow="cross-origin-isolated"
+                    loading="lazy">
+                </iframe>
             </div>
         </section>
     </main>
