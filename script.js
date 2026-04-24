@@ -24,6 +24,12 @@ function switchTab(tabName) {
         selectedNavLink.classList.add('active');
     }
 
+    // Full-bleed mode for leaderboard (remove container constraints)
+    const mainEl = document.querySelector('main');
+    if (mainEl) {
+        mainEl.classList.toggle('leaderboard-active', tabName === 'leaderboard');
+    }
+
     // Scroll to top smoothly
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
